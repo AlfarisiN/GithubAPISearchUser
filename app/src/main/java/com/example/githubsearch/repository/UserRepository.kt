@@ -48,4 +48,8 @@ class UserRepository @Inject constructor(
 
         return Pair(users, "Not found in database, proceed to get from API")
     }
+
+    suspend fun getUserDetail(id: Int): UserEntity? {
+        return userDao.getUserById(id)
+    }
 }

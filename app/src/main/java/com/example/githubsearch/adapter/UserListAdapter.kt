@@ -1,5 +1,6 @@
 package com.example.githubsearch.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubsearch.R
 import com.example.githubsearch.local.UserEntity
-import com.example.githubsearch.model.ItemUser
 
-class UserListAdapter: RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
+class UserListAdapter(
+    private val onClick: (UserEntity) -> Unit
+): RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
     private val users = mutableListOf<UserEntity>()
 
@@ -47,7 +49,7 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
         holder.viewType.text = user.user_view_type
         holder.type.text = user.type
         holder.cardUser.setOnClickListener {
-            print("press")
+            onClick(user)
         }
     }
 

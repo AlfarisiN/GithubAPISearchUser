@@ -1,5 +1,6 @@
 package com.example.githubsearch.view
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -26,7 +27,7 @@ class SearchActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: SearchUserViewModel
-    private val adapter = UserListAdapter()
+    private lateinit var adapter: UserListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApp).appComponent.inject(this)
@@ -47,30 +48,27 @@ class SearchActivity : AppCompatActivity() {
             users ->
         }
 
+        adapter = UserListAdapter{ user ->
+            val intent = Intent(this, UserProfileActivity::class.java)
+            intent.putExtra("userID", user.id)
+            startActivity(intent)
+        }
+
         recyclerUser.layoutManager = LinearLayoutManager(this)
         recyclerUser.adapter = adapter
-
-//        searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                query?.let { viewModel.search(it) }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?) = false
-//        })
-
-        etSearchUser.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.searchUser(etSearchUser.text.toString())
-                true
-            } else false
-        }
 
         viewModel.message.observe(this) {
             AlertDialog.Builder(this)
                 .setMessage(it)
                 .setPositiveButton("OK", null)
                 .show()
+        }
+
+        etSearchUser.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.searchUser(etSearchUser.text.toString())
+                true
+            } else false
         }
 
         viewModel.users.observe(this) {

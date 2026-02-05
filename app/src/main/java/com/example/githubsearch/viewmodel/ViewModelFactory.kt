@@ -8,7 +8,8 @@ import javax.inject.Provider
 
 class ViewModelFactory @Inject constructor(
     private val dashboardVM: Provider<DashboardViewModel>,
-    private val searchUserVM: Provider<SearchUserViewModel>
+    private val searchUserVM: Provider<SearchUserViewModel>,
+    private val userProfileVM: Provider<UserProfileViewModel>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(
         modelClass: Class<T>,
@@ -25,6 +26,10 @@ class ViewModelFactory @Inject constructor(
         if (modelClass.isAssignableFrom(SearchUserViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return searchUserVM.get() as T
+        }
+        if (modelClass.isAssignableFrom(UserProfileViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return userProfileVM.get() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class $modelClass")
     }
