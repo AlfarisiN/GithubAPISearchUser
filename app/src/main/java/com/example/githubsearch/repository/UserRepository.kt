@@ -1,10 +1,16 @@
 package com.example.githubsearch.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.githubsearch.local.UserDao
 import com.example.githubsearch.local.UserEntity
 import com.example.githubsearch.model.ItemUser
 import com.example.githubsearch.model.ResponseUsers
 import com.example.githubsearch.network.ApiServices
+import com.example.githubsearch.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.http.Query
 import javax.inject.Inject
 
@@ -52,4 +58,20 @@ class UserRepository @Inject constructor(
     suspend fun getUserDetail(id: Int): UserEntity? {
         return userDao.getUserById(id)
     }
+
+//    private val apis = RetrofitClient.api
+
+//    suspend fun searchUser(username: String): LiveData<List<UserEntity>> {
+//        val result = MutableLiveData<List<UserEntity>>()
+//        apis.searchUsers(username).enqueue(object : Callback<ResponseUsers> {
+//            override fun onResponse(call: Call<ResponseUsers>, response: Response<ResponseUsers>) {
+//                result.postValue(response.body()?.items ?: emptyList())
+//            }
+//
+//            override fun onFailure(call: Call<ResponseUsers>, t: Throwable) {
+//                result.postValue(emptyList())
+//            }
+//        })
+//        return result
+//    }
 }

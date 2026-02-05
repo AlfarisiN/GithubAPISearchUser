@@ -2,17 +2,11 @@ package com.example.githubsearch.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.OverscrollFactory
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chuckerteam.chucker.api.Chucker
 import com.example.githubsearch.MyApp
 import com.example.githubsearch.R
 import com.example.githubsearch.adapter.DashboardAdapter
@@ -54,5 +48,6 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         viewModel.loadDashboard()
+
     }
 }

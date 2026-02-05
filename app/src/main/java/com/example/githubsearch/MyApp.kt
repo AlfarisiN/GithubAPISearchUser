@@ -7,13 +7,14 @@ import com.example.githubsearch.di.DaggerAppComponent
 class MyApp : Application() {
 
     lateinit var appComponent: AppComponent
-        private set
 
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent.builder()
-            .application(this)
-            .build()
+        appComponent = DaggerAppComponent.factory().create(this)
+
+//        appComponent = DaggerAppComponent.builder()
+//            .application(this)
+//            .build()
     }
 }
